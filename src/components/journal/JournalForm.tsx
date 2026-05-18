@@ -1,18 +1,18 @@
-import { useState } from 'react'
-import { getMoodDisplayLabel, MOOD_OPTIONS } from '../../constants/moods'
-import { type JournalEntryInput } from '../../types/journal.types'
+import { useState } from "react";
+import { getMoodDisplayLabel, MOOD_OPTIONS } from "../../constants/moods";
+import { type JournalEntryInput } from "../../types/journal.types";
 
 type JournalFormProps = {
-  date: string
-  mood: string
-  text: string
-  onDateChange: (date: string) => void
-  onMoodChange: (mood: string) => void
-  onTextChange: (text: string) => void
-  onSubmit: (entry: JournalEntryInput) => void
-  submitLabel: string
-  isUpdating: boolean
-}
+  date: string;
+  mood: string;
+  text: string;
+  onDateChange: (date: string) => void;
+  onMoodChange: (mood: string) => void;
+  onTextChange: (text: string) => void;
+  onSubmit: (entry: JournalEntryInput) => void;
+  submitLabel: string;
+  isUpdating: boolean;
+};
 
 export default function JournalForm({
   date,
@@ -25,18 +25,18 @@ export default function JournalForm({
   submitLabel,
   isUpdating,
 }: JournalFormProps) {
-  const [errorMessage, setErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState("");
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
-    event.preventDefault()
+    event.preventDefault();
 
     if (!date || !mood.trim() || !text.trim()) {
-      setErrorMessage('Date, mood, and journal text are required.')
-      return
+      setErrorMessage("Date, mood, and journal text are required.");
+      return;
     }
 
-    setErrorMessage('')
-    onSubmit({ date, mood, text })
+    setErrorMessage("");
+    onSubmit({ date, mood, text });
   }
 
   return (
@@ -51,10 +51,10 @@ export default function JournalForm({
             type="date"
             value={date}
             onChange={(event) => {
-              const nextDate = event.target.value
-              onDateChange(nextDate)
+              const nextDate = event.target.value;
+              onDateChange(nextDate);
             }}
-            className="w-full rounded-lg border border-neutral-300 bg-white px-3 py-2.5 text-sm text-neutral-900 outline-none transition-colors focus:border-neutral-500"
+            className="w-full cursor-pointer rounded-lg border border-neutral-300 bg-white px-3 py-2.5 text-sm text-neutral-900 outline-none transition-colors focus:border-neutral-500 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
           />
         </label>
 
@@ -92,7 +92,9 @@ export default function JournalForm({
       ) : null}
 
       {errorMessage ? (
-        <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{errorMessage}</p>
+        <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
+          {errorMessage}
+        </p>
       ) : null}
 
       <button
@@ -102,5 +104,5 @@ export default function JournalForm({
         {submitLabel}
       </button>
     </form>
-  )
+  );
 }
