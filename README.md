@@ -1,73 +1,120 @@
-# React + TypeScript + Vite
+# DailyDots
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+DailyDots is a clean, minimal daily journal app with mood tracking.
 
-Currently, two official plugins are available:
+The app is built with React, TypeScript, Vite, and Tailwind CSS. It focuses on a calm writing experience with simple local-first data storage.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- Daily journal entries with one entry per date (create or update)
+- Mood tracking with predefined mood options
+- Home dashboard with quick add for today
+- Recent entries preview
+- Full journals list with open/edit/delete actions
+- Custom in-app delete confirmation modal
+- Route-based page titles in the browser tab
+- Local storage persistence
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Router
+- ESLint
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Prerequisites
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Node.js 18+ (recommended: latest LTS)
+- npm
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Installation
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Run Development Server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+### Lint
+
+```bash
+npm run lint
+```
+
+## Routes
+
+- `/` -> Home
+- `/journals` -> My Journals
+- `/journal` -> Add New Journal
+- Any unknown route redirects to `/`
+
+## Data Storage
+
+Entries are stored in browser localStorage under the key:
+
+- `daily-dots-journals`
+
+Each entry includes:
+
+- `date` (YYYY-MM-DD)
+- `mood`
+- `text`
+- `updatedAt`
+
+## Project Structure
+
+```text
+src/
+  App.tsx
+  main.tsx
+  index.css
+  components/
+    journal/
+      JournalForm.tsx
+    layout/
+      AppShell.tsx
+  constants/
+    moods.ts
+  pages/
+    HomePage.tsx
+    MyJournalsPage.tsx
+    AddJournalPage.tsx
+  services/
+    journalStorageService.ts
+  types/
+    journal.types.ts
+  utils/
+    date.ts
+```
+
+## Notes
+
+- This project currently uses local storage only.
+- Supabase integration can be added later as a backend layer for auth and cloud sync.
+
+## Scripts
+
+- `npm run dev` -> Start Vite dev server
+- `npm run build` -> Type-check and build
+- `npm run preview` -> Preview production build locally
+- `npm run lint` -> Run ESLint
