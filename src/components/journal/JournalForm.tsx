@@ -26,6 +26,7 @@ export default function JournalForm({
   isUpdating,
 }: JournalFormProps) {
   const [errorMessage, setErrorMessage] = useState("");
+  const characterCount = text.length;
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
@@ -75,7 +76,7 @@ export default function JournalForm({
       </div>
 
       <label className="block space-y-2 text-sm font-medium text-neutral-700">
-        Journal Text
+        Journal Entry
         <textarea
           value={text}
           onChange={(event) => onTextChange(event.target.value)}
@@ -83,6 +84,12 @@ export default function JournalForm({
           rows={8}
           className="w-full rounded-lg border border-neutral-300 bg-white px-3 py-3 text-sm leading-6 text-neutral-900 outline-none transition-colors focus:border-neutral-500"
         />
+        <p
+          className="text-right text-xs font-normal text-neutral-500"
+          aria-live="polite"
+        >
+          {characterCount} characters
+        </p>
       </label>
 
       {isUpdating ? (
